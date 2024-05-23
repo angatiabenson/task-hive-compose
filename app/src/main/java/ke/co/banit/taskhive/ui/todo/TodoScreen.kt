@@ -1,8 +1,10 @@
 package ke.co.banit.taskhive.ui.todo
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -59,7 +61,10 @@ fun TodoScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun TodoItemsSection(modifier: Modifier = Modifier, todos: List<TodoModel>) {
-    LazyColumn {
+    LazyColumn(
+        contentPadding = PaddingValues(vertical = 12.dp),
+        modifier = modifier.fillMaxWidth()
+    ) {
         items(todos.size){index->
             TodoItem(todo = todos[index])
         }
