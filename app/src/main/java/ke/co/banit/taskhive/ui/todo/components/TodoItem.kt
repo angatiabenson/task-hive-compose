@@ -62,6 +62,7 @@ fun TodoItem(modifier: Modifier = Modifier, todo: TodoModel) {
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.weight(1f)
             )
+            Spacer(modifier = Modifier.size(8.dp))
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.fillMaxHeight(),

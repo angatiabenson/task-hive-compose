@@ -1,5 +1,6 @@
 package ke.co.banit.taskhive.ui.todo
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -14,48 +15,77 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ke.co.banit.taskhive.ui.todo.components.AddTaskComponent
 import ke.co.banit.taskhive.ui.todo.components.TodoItem
 import ke.co.banit.taskhive.ui.todo.models.TodoModel
 
 @Composable
 fun TodoScreen(modifier: Modifier = Modifier) {
-    Column(
+    Box(
         modifier = modifier
             .fillMaxSize()
             .padding(12.dp)
     ) {
-        val todos by remember {
-            mutableStateOf(
-                listOf(
-                    TodoModel(
-                        id = 1,
-                        title = "Learn Jetpack Compose",
-                        completed = false
-                    ),
-                    TodoModel(
-                        id = 2,
-                        title = "State Management in Jetpack Compose",
-                        completed = false
-                    ),
-                    TodoModel(
-                        id = 3,
-                        title = "Navigation in Jetpack Compose",
-                        completed = false
-                    ),
-                    TodoModel(
-                        id = 4,
-                        title = "Jetpack Compose for Beginners",
-                        completed = false
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+        )
+        {
+            val todos by remember {
+                mutableStateOf(
+                    listOf(
+                        TodoModel(
+                            id = 1,
+                            title = "Learn Jetpack Compose",
+                            completed = false
+                        ),
+                        TodoModel(
+                            id = 2,
+                            title = "State Management in Jetpack Compose",
+                            completed = false
+                        ),
+                        TodoModel(
+                            id = 3,
+                            title = "Navigation in Jetpack Compose",
+                            completed = false
+                        ),
+                        TodoModel(
+                            id = 4,
+                            title = "Jetpack Compose for Beginners",
+                            completed = false
+                        ),
+                        TodoModel(
+                            id = 1,
+                            title = "Learn Jetpack Compose",
+                            completed = false
+                        ),
+                        TodoModel(
+                            id = 2,
+                            title = "State Management in Jetpack Compose",
+                            completed = false
+                        ),
+                        TodoModel(
+                            id = 3,
+                            title = "Navigation in Jetpack Compose",
+                            completed = false
+                        ),
+                        TodoModel(
+                            id = 4,
+                            title = "Jetpack Compose for Beginners",
+                            completed = false
+                        )
                     )
                 )
-            )
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(text = "TaskHive", style = MaterialTheme.typography.bodyLarge)
+            Spacer(modifier = Modifier.height(12.dp))
+            TodoItemsSection(todos = todos)
         }
-        Spacer(modifier = Modifier.height(12.dp))
-        Text(text = "TaskHive", style = MaterialTheme.typography.bodyLarge)
-        Spacer(modifier = Modifier.height(12.dp))
-        TodoItemsSection(todos = todos)
+        AddTaskComponent(Modifier.align(Alignment.BottomEnd))
     }
 }
 
