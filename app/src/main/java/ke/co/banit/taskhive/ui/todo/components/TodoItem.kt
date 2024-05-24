@@ -1,6 +1,7 @@
 package ke.co.banit.taskhive.ui.todo.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,10 +13,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,12 +25,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import ke.co.banit.taskhive.R
 import ke.co.banit.taskhive.ui.todo.models.TodoModel
 
 @Composable
-fun TodoItem(modifier: Modifier = Modifier, todo: TodoModel) {
+fun TodoItem(
+    modifier: Modifier = Modifier,
+    todo: TodoModel,
+    onDelete: (Int) -> Unit,
+    onCheck: (Int, Boolean) -> Unit
+) {
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -60,16 +67,28 @@ fun TodoItem(modifier: Modifier = Modifier, todo: TodoModel) {
             Text(
                 text = todo.title,
                 style = MaterialTheme.typography.bodyMedium,
+                textDecoration = if (todo.completed) {
+                    TextDecoration.LineThrough
+                } else {
+                    TextDecoration.None
+                },
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.size(8.dp))
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.fillMaxHeight(),
-                horizontalAlignment = Alignment.End
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(imageVector = Icons.Outlined.Close, contentDescription = "Close Task")
-                Image(imageVector = Icons.Outlined.Delete, contentDescription = "Delete Task")
+                Image(
+                    imageVector = Icons.Outlined.Delete,
+                    contentDescription = "Delete Task",
+                    modifier = Modifier.clickable {
+                        onDelete(todo.id)
+                    })
+                Checkbox(checked = todo.completed, onCheckedChange = {
+                    onCheck(todo.id, it)
+                })
             }
         }
     }
